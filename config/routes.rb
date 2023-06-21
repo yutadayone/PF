@@ -21,7 +21,10 @@ Rails.application.routes.draw do
   scope module: :public do
     root 'homes#top'
     get 'homes/about' => 'homes#about'
-    resources :customers, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+
+    get '/customers/mypage' => 'customers#show'
+    get 'customers/infomation/edit' => 'customers#edit', as: 'edit_customers'
+    patch '/customers/update' => 'customers#update'
     #get 'customers/index'
     #get 'customers/new'
     #get 'customers/show'
@@ -36,7 +39,7 @@ Rails.application.routes.draw do
     #get 'comments/edit'
     #get 'comments/update'
     #get 'comments/destroy'
-    resources :comments, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+    resources :reviews, only: [:index, :new, :create, :show, :edit, :update, :destroy]
     #get 'reviews/index'
     #get 'reviews/new'
     #get 'reviews/create'
