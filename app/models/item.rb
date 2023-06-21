@@ -1,6 +1,6 @@
 class Item < ApplicationRecord
 
-  belongs_to :genre
+  belongs_to :genre, optional: true
   belongs_to :customer
   has_many :reviews, dependent: :destroy
 

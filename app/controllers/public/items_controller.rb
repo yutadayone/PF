@@ -9,6 +9,7 @@ class Public::ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)
+    @item.customer = current_customer
     if @item.save
       redirect_to items_path
     else
