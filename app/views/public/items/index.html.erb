@@ -1,0 +1,25 @@
+<div class= "container">
+  <div class= "row">
+    <div class="col-3">
+    </div>
+      <div class= "col-9">
+      <h2 class= "row"><%= "商品一覧 （全#{@items.count}件）" %></h2>
+       <div class= "row">
+        <div class="d-flex flex-wrap col-8">
+          <% @items.each do |item| %>
+            <span class="col-3">
+              <div>
+                <%= link_to item.item_name, item_path(item) %>
+              </div>
+              <div>
+                <%= link_to item.introduction, item_path(item) %>
+              </div>
+            </span>
+          <% end %>
+         </div>
+        </div>
+       </div>
+       <%= link_to "新商品登録", new_item_path, class: 'btn btn-primary' %>
+       <%#= paginate @items %>
+    </div>
+ </div>
