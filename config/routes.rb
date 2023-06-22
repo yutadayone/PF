@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     get '/customers/mypage' => 'customers#show'
     get 'customers/infomation/edit' => 'customers#edit', as: 'edit_customers'
     patch '/customers/update' => 'customers#update'
+    get 'customers/withdraw_confirm' => 'customers#withdraw_confirm', as: 'withdraw_confirm'
+    patch 'customers/withdraw' => 'customers#withdraw', as: 'withdraw'
     #get 'customers/index'
     #get 'customers/new'
     #get 'customers/show'

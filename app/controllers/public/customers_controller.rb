@@ -15,6 +15,9 @@ class Public::CustomersController < ApplicationController
       render 'edit'
     end
   end
+  
+  def withdraw_confirm
+  end
 
   def withdraw
     @customer = current_customer
@@ -28,6 +31,6 @@ class Public::CustomersController < ApplicationController
   private
 
   def customer_params
-    params.require(:customer).permit(:last_name, :first_name, :last_name_read, :first_name_read, :post_code, :address, :tel, :is_deleted, :email, :encrypted_password)
+    params.require(:customer).permit(:last_name, :first_name, :last_name_kana, :first_name_kana, :post_code, :address, :tel, :is_deleted, :email, :encrypted_password)
   end
 end
