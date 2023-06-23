@@ -4,6 +4,8 @@ class CreateComments < ActiveRecord::Migration[6.1]
 
       t.timestamps
       t.text :introduction, null: false
+      t.integer :customer_id, null: false
+      t.integer :review_id, null: false
     end
   end
 end

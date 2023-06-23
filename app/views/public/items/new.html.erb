@@ -16,6 +16,12 @@
             <td><%= f.label :"商品説明" %></td>
             <td><%= f.text_area :introduction, style: "width:80%", rows: "5" %></td>
           </tr>
+          <tr>
+            <td><%= f.label :"ジャンル" %></td>
+            <td>
+                <%= f.collection_select :genre_id, Genre.all, :id, :genre_name, include_blank: "選択して下さい" %>
+            </td>
+          </tr>
       </table>
         <div class="button text-center">
         <%= f.submit '新規登録', class:"btn btn-sm btn-success" %>
