@@ -1,2 +1,28 @@
-<h1>Public::Reviews#new</h1>
-<p>Find me in app/views/public/reviews/new.html.erb</p>
+<div class="container p-5">
+  <div class="row offset-md-2">
+    <div class="col-8 mx-auto">
+      <h3>レビュー新規投稿</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-md-4">
+        <%= form_with model: @newreview, url: item_reviews_path, local:true do |f| %>
+      <table>
+        <tr>
+        <td><%= f.label :"画像" %></td>
+        <td><%= f.file_field :image, accept: "image/*" %></td>
+        </tr>
+
+          <tr>
+            <td><%= f.label :"レビュー内容" %></td>
+            <td><%= f.text_area :introduction, style: "width:80%", rows: "5" %></td>
+          </tr>
+
+      </table>
+        <div class="button text-center">
+        <%= f.submit '新規登録', class:"btn btn-sm btn-success" %>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div>
