@@ -1,6 +1,7 @@
 class Public::ItemsController < ApplicationController
   def index
     @items = Item.all
+    @genres = Genre.all
   end
 
   def new
@@ -18,13 +19,23 @@ class Public::ItemsController < ApplicationController
   end
 
   def show
-    @customer = Customer.find(params[:id])
+    @item = Item.find(params[:id])
+    @genres = Genre.all
+    @genre = @item.genre
   end
 
   def edit
+    @new_item = Item.new
+    @item = Item.find(params[:id])
   end
 
   def update
+    @Item = Item.find(params[:id])
+    if @Item.update(item_params)
+      redirect_to item_path
+    else
+      render "edit"
+    end
   end
 
   def destroy
@@ -33,6 +44,6 @@ class Public::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:item_name, :introduction)
+    params.require(:item).permit(:item_name, :introduction, :genre_id)
   end
 end

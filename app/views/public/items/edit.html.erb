@@ -1,2 +1,27 @@
-<h1>Public::Items#edit</h1>
-<p>Find me in app/views/public/items/edit.html.erb</p>
+<div class="container p-5">
+  <div class="row offset-md-2">
+    <div class="col-8 mx-auto">
+      <h1>店編集</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-md-4">
+  <%= form_with model: @item, url: item_path, method: :patch do |f| %>
+        <table>
+          <tr>
+            <td><%= f.label :"商品名" %></td>
+            <td><%= f.text_field :item_name %></td>
+          </tr>
+          <tr>
+            <td><%= f.label :"商品説明" %></td>
+            <td><%= f.text_field :introduction, style: "width:80%", rows: "5" %></td>
+          </tr>
+            <td><%= f.label :"ジャンル" %></td>
+            <td>
+                <%= f.collection_select :genre_id, Genre.all, :id, :genre_name, include_blank: "選択して下さい" %>
+            </td>
+      </table>
+    <%= f.submit '変更を保存', class:"text-center btn btn-success" %>
+  <% end %>
+  </div>
+</div>
