@@ -2,6 +2,7 @@
 <div class= "container">
   <div class= "row">
     <div class="col-3">
+      <%= render 'public/genres/genre', genres: @genres %>
     </div>
       <div class= "col-9">
       <h2 class= "row"><%= "店一覧 （全#{@items.count}件）" %></h2>

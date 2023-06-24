@@ -1,0 +1,25 @@
+<div class="item-index-box">
+
+    <!-- ジャンル選択のサイドバー -->
+    <%#= render "items/genres_sidebar", genres: @genres %>
+    <!-- ジャンル選択のサイドバー -->
+    <div class="item-index">
+    <h3>店一覧</h3>
+        <table>
+          <tbody>
+            <tr class="item-box">
+              <% @genre.items.each do |item| %>
+                <td class="item">
+                  <%= link_to item_path(item) do %>
+                    <%= item.item_name %><br>
+                    <%= item.introduction %><br>
+                    <%#= attachment_image_tag(item, :image, :fill, 300, 300, fallback:"top.image.jpg") %><br>
+                    <%= @genre.genre_name %><br>
+                  <% end %>
+                </td>
+              <% end %>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+</div>
