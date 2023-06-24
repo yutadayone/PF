@@ -68,10 +68,15 @@ devise_for :customers, skip: [:passwords],controllers: {
     #get 'items/edit'
     #get 'items/update'
     #get 'items/destroy'
+    resources :genres, only: [:show]
+    #get 'genres/show'
   end
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   devise_scope :admin do
     post 'admins/sign_in', to: 'admin/sessions#sign_in'
+  end
+  devise_scope :customer do
+    post 'customers/guest_sign_in', to: 'public/sessions#guest_sign_in'
   end
 end

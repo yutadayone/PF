@@ -20,4 +20,19 @@ class Customer < ApplicationRecord
   def active_for_authentication?
     super && (is_deleted == false)
   end
+
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |customer|
+      customer.password = SecureRandom.urlsafe_base64
+      customer.last_name = "あいう"
+      customer.first_name = "えお"
+      customer.last_name_kana = "アイウ"
+      customer.first_name_kana = "エオ"
+      customer.post_code = "00"
+      customer.address = "99"
+      customer.tel = "88"
+      # customer.confirmed_at = Time.now  # Confirmable を使用している場合は必要
+      # 例えば name を入力必須としているならば， customer.name = "ゲスト" なども必要
+    end
+  end
 end
