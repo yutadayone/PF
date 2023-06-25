@@ -5,15 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Admin.create!(
-   email: 'admin@admin',
-   password: 'testtest'
-)
+
+#Admin.create!(
+   #email: 'admin@admin',
+   #password: 'testtest'
+#)
 
 Tag.create([
-  { name: 'タグ1' },
-  { name: 'タグ2' },
-  { name: 'タグ3' },
-  { name: 'タグ4' },
-  { name: 'タグ5' }
+  { tags: 'タグ1' },
+  { tags: 'タグ2' },
+  { tags: 'タグ3' },
+  { tags: 'タグ4' },
+  { tags: 'タグ5' }
 ])

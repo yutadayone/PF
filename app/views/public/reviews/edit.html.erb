@@ -1,2 +1,42 @@
-<h1>Public::Reviews#edit</h1>
-<p>Find me in app/views/public/reviews/edit.html.erb</p>
+<div class="container p-5">
+  <div class="row offset-md-2">
+    <div class="col-8 mx-auto">
+      <h3>レビュー編集</h3>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8 offset-md-4 position-static">
+        <%= form_with model: @review, url: item_review_path(params[:item_id], @review.id), local:true do |f| %>
+      <table>
+        <tr>
+        <td><%= f.label :"画像" %></td>
+        <td><%= f.file_field :image, accept: "image/*" %></td>
+        </tr>
+
+          <tr>
+            <td><%= f.label :"レビュー内容" %></td>
+            <td><%= f.text_area :introduction, style: "width:80%", rows: "5" %></td>
+          </tr>
+<tr>
+    <%= f.label :star,'評価 ', class:'col-md-3 col-form-label' %>
+            <div class="position-static" id="star">
+    </div>
+        <script>
+          raty(document.querySelector("#star"), {
+            starOff: "<%= asset_path('star-off.png') %>",
+            starOn: "<%= asset_path('star-on.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            score: "<%=  @review.star %>",
+            scoreName: "review[star]",
+            half: true
+          })
+          </script>
+          </tr>
+      </table>
+        <div class="button text-center">
+        <%= f.submit 'レビュー編集', class:"btn btn-sm btn-success" %>
+        </div>
+        <% end %>
+    </div>
+  </div>
+</div>

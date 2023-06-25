@@ -22,10 +22,10 @@ class Public::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @genres = Genre.all
     @genre = @item.genre
+    @reviews = @item.reviews
   end
 
   def edit
-    @new_item = Item.new
     @item = Item.find(params[:id])
   end
 
@@ -44,6 +44,6 @@ class Public::ItemsController < ApplicationController
   private
 
   def item_params
-    params.require(:item).permit(:item_name, :introduction, :genre_id)
+    params.require(:item).permit(:item_name, :introduction, :genre_id, :image)
   end
 end

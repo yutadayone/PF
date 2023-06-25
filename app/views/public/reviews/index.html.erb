@@ -1,9 +1,22 @@
+<%= form_tag({controller:"reviews",action:"index"}, method: :get) do %>
+    <% Tag.all.each do |t| %>
+        <li><%= check_box :tag_ids, t.tags  %><%= t.tags  %></li>
+    <% end %>
+    <%= submit_tag 'タグ検索' %>
+<% end %>
+
+
+<%= form_tag({controller:"reviews",action:"index"}, method: :get) do %>
+    <%= text_field_tag :tag %>
+    <%= submit_tag 'タグを追加' %>
+<% end %>
+
 <% @reviews.each do |review| %>
 
 
 <p>画像</p>
   <% if review.image.attached? %>
-    <%= image_tag list.image, size: "200x200" %>
+    <%= image_tag review.image, size: "200x200" %>
   <% else %>
     <%= image_tag 'no_image', size: "200x200" %>
   <% end %>

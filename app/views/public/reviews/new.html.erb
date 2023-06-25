@@ -5,7 +5,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-8 offset-md-4">
+    <div class="col-8 offset-md-4 position-static">
         <%= form_with model: @newreview, url: item_reviews_path, local:true do |f| %>
       <table>
         <tr>
@@ -17,7 +17,30 @@
             <td><%= f.label :"レビュー内容" %></td>
             <td><%= f.text_area :introduction, style: "width:80%", rows: "5" %></td>
           </tr>
-
+<tr>
+    <%= f.label :star,'評価 ', class:'col-md-3 col-form-label' %>
+            <div class="position-static" id="star">
+    </div>
+        <script>
+          raty(document.querySelector("#star"), {
+            starOff: "<%= asset_path('star-off.png') %>",
+            starOn: "<%= asset_path('star-on.png') %>",
+            starHalf: "<%= asset_path('star-half.png') %>",
+            scoreName: "review[star]",
+            half: true
+          })
+          </script>
+          </tr>
+          <div class='form-group'>
+        <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :tags) do |tag| %>
+            <div class='form-check'>
+                <%= tag.label class: 'form-check-label' do %>
+                    <%= tag.check_box class: 'form-check-input' %>
+                    <%= tag.text %>
+                <% end %>
+            </div>
+        <% end %>
+    </div>
       </table>
         <div class="button text-center">
         <%= f.submit '新規登録', class:"btn btn-sm btn-success" %>

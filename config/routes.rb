@@ -52,8 +52,7 @@ devise_for :customers, skip: [:passwords],controllers: {
     #get 'comments/edit'
     #get 'comments/update'
     #get 'comments/destroy'
-    
-    
+
     #get 'reviews/index'
     #get 'reviews/new'
     #get 'reviews/create'
@@ -61,8 +60,10 @@ devise_for :customers, skip: [:passwords],controllers: {
     #get 'reviews/edit'
     #get 'reviews/update'
     #get 'reviews/destroy'
+    resources :reviews, only: [:index]
     resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
-    resources :reviews, only: [:index, :new, :create, :show, :edit, :update, :destroy]
+      resources :reviews, only: [:new, :create, :show, :edit, :update, :destroy]
+      
     end
     #get 'items/index'
     #get 'items/new'

@@ -27,4 +27,31 @@
       </div>
     </div>
   </div>
+  <% @reviews.each do |review| %>
+  <p>画像</p>
+  <%= link_to item_review_path(@item.id,review.id) do %>
+  <% if review.image.attached? %>
+    <%= image_tag review.image, size: "200x200" %>
+  <% else %>
+    <%= image_tag 'no_image.png', size: "200x200" %>
+  <% end %>
+  <% end %>
+  <div id="star_<%=  review.id %>"></div>
+<script>
+$(document).on('turbolinks:load', function() {
+  let elem = document.querySelector('#star_<%=  review.id %>');
+  if (elem == null) return;
+
+  elem.innerHTML = "";
+  let opt = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: "<%=  review.star %>",
+    readOnly: true,
+  };
+  raty(elem, opt);
+});
+</script>
+  <% end %>
 </div>
