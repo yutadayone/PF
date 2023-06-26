@@ -1,2 +1,38 @@
-<h1>Public::Reviews#show</h1>
-<p>Find me in app/views/public/reviews/show.html.erb</p>
+
+
+
+<p>画像</p>
+  <% if @review.image.attached? %>
+    <%= image_tag @review.image, size: "200x200" %>
+  <% else %>
+    <%= image_tag 'no_image', size: "200x200" %>
+  <% end %>
+  レビュー
+<%= @review.introduction %>
+
+
+
+
+          <div id="star_<%=  @review.id %>"></div>
+<script>
+$(document).on('turbolinks:load', function() {
+  let elem = document.querySelector('#star_<%=  @review.id %>');
+  if (elem == null) return;
+
+  elem.innerHTML = "";
+  let opt = {
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: "<%=  @review.star %>",
+    readOnly: true,
+  };
+  raty(elem, opt);
+});
+</script>
+
+<%=  link_to 'レビュー編集', edit_item_review_path(params[:item_id],@review), class:"btn btn-sm btn-success" %>
+
+<% @review.tags.each do |tag| %>
+    <span><%= tag.tags %></span>
+<% end %>
