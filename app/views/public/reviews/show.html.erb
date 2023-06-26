@@ -36,3 +36,20 @@ $(document).on('turbolinks:load', function() {
 <% @review.tags.each do |tag| %>
     <span><%= tag.tags %></span>
 <% end %>
+
+
+<div>
+<%= form_with model: [@item, @review, @comment] do |f| %>
+  <%= f.label :"コメントをする" %>
+  <%= f.text_area :introduction %>
+  <%= f.label :"コメント一覧" %>
+  <%= f.hidden_field :review_id, value: @review.id %>
+  <%= f.submit 'コメントする', class:"btn btn-sm btn-success" %>
+<% end %>
+
+
+<% @comments.each do |comment| %>
+  <%= comment.introduction %>
+<% end %>
+</div>
+ <%= link_to 'Topページ', root_path %>

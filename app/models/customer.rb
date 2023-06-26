@@ -32,7 +32,7 @@ class Customer < ApplicationRecord
       customer.address = "99"
       customer.tel = "88"
       # customer.confirmed_at = Time.now  # Confirmable を使用している場合は必要
-      # 例えば name を入力必須としているならば， customer.name = "ゲスト" なども必要
+      # 例えば lastname を入力必須としているならば， customer.lastname = "ゲスト" なども必要
     end
   end
 end

@@ -62,8 +62,9 @@ devise_for :customers, skip: [:passwords],controllers: {
     #get 'reviews/destroy'
     resources :reviews, only: [:index]
     resources :items, only: [:index, :new, :create, :show, :edit, :update, :destroy] do
-      resources :reviews, only: [:new, :create, :show, :edit, :update, :destroy]
-      
+      resources :reviews, only: [:new, :create, :show, :edit, :update, :destroy] do
+        resources :comments, only: [:create]
+      end
     end
     #get 'items/index'
     #get 'items/new'
