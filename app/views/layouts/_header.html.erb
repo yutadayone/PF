@@ -10,12 +10,13 @@
       <div class="collapse navbar-collapse" id="navbarNavDropdown">
         <ul class="navbar-nav ml-auto">
         <% if customer_signed_in? %>
+        <%= link_to 'admin', new_admin_session_path %>
           <li><strong>〜〜ようこそ、<%= current_customer.last_name %><%= current_customer.first_name %>さん〜〜</strong></li>
           <li>
             <%= link_to 'マイページ', customers_mypage_path, class:'nav-link text-light btn btn-dark ml-5' %>
           </li>
           <li>
-            <%= link_to '商品一覧', items_path, class:'nav-link text-light btn btn-dark ml-2' %>
+            <%= link_to '店一覧', items_path, class:'nav-link text-light btn btn-dark ml-2' %>
           </li>
           <li>
             <%= link_to 'レビュー一覧', reviews_path, class:'nav-link text-light btn btn-dark ml-2' %>
@@ -28,7 +29,7 @@
             <%= link_to 'About', homes_about_path, class:'nav-link text-light btn btn-dark ml-2' %>
           </li>
           <li>
-            <%=  link_to '商品一覧', items_path, class:'nav-link text-light btn btn-dark ml-2' %>
+            <%=  link_to '店一覧', items_path, class:'nav-link text-light btn btn-dark ml-2' %>
           </li>
           <li>
             <%=  link_to '新規登録', new_customer_registration_path, class:'nav-link text-light btn btn-dark ml-2' %>

@@ -15,6 +15,7 @@
 
 
 <p>画像</p>
+<%= link_to item_review_path(review.item.id,review) do %>
   <% if review.image.attached? %>
     <%= image_tag review.image, size: "200x200" %>
   <% else %>
@@ -22,3 +23,4 @@
   <% end %>
 <%= review.introduction %>
    <% end %>
+<% end %>

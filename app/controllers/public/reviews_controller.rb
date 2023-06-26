@@ -1,8 +1,9 @@
 class Public::ReviewsController < ApplicationController
   def index
     @reviews = Review.all
+    @review = current_customer.reviews.new
     if params[:tag_ids]
-      @tweets = []
+      @reviews = []
       params[:tag_ids].each do |key, value|
         if value == "1"
           tag_items = Tag.find_by(tags: key).reviews
@@ -21,7 +22,6 @@ class Public::ReviewsController < ApplicationController
 
   def create
     @review = Review.new(review_params)
-
     @review.customer_id = current_customer.id
     @review.item_id = params[:item_id]
     if @review.save
@@ -31,12 +31,26 @@ class Public::ReviewsController < ApplicationController
       @reviews = Review.all
       render 'index'
     end
+
+     @review = current_customer.reviews.new(review_params)
+    if @review.save
+      redirect_back(fallback_location: root_path)  #コメント送信後は、一つ前のページへリダイレクトさせる。
+    else
+      redirect_back(fallback_location: root_path)  #同上
+    end
   end
 
   def show
+
     @review = Review.find(params[:id])
+    #レビュー詳細に関連付けてあるコメントを全取得
+    @comments = @review.comments
+    #レビュー詳細画面でコメントの投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
+    @comment = current_customer.comments.new
     #@item = Item.find(params[:id])
     #@review = @item.review
+    @item = Item.find(params[:item_id])
+
   end
 
   def edit
