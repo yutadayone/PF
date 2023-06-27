@@ -1,7 +1,3 @@
-
-
-
-<p>画像</p>
   <% if @review.image.attached? %>
     <%= image_tag @review.image, size: "200x200" %>
   <% else %>
@@ -9,10 +5,6 @@
   <% end %>
   レビュー
 <%= @review.introduction %>
-
-
-
-
           <div id="star_<%=  @review.id %>"></div>
 <script>
 $(document).on('turbolinks:load', function() {
@@ -37,19 +29,17 @@ $(document).on('turbolinks:load', function() {
     <span><%= tag.tags %></span>
 <% end %>
 
-
 <div>
 <%= form_with model: [@item, @review, @comment] do |f| %>
   <%= f.label :"コメントをする" %>
   <%= f.text_area :introduction %>
+  <%= f.submit 'コメントする', class:"btn btn-sm btn-success" %>
   <%= f.label :"コメント一覧" %>
   <%= f.hidden_field :review_id, value: @review.id %>
-  <%= f.submit 'コメントする', class:"btn btn-sm btn-success" %>
-<% end %>
 
+<% end %>
 
 <% @comments.each do |comment| %>
   <%= comment.introduction %>
 <% end %>
 </div>
- <%= link_to 'Topページ', root_path %>

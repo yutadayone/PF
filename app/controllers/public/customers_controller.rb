@@ -1,5 +1,5 @@
 class Public::CustomersController < ApplicationController
-
+  before_action :authenticate_customer!
   def show
   end
 
@@ -15,7 +15,7 @@ class Public::CustomersController < ApplicationController
       render 'edit'
     end
   end
-  
+
   def withdraw_confirm
   end
 
