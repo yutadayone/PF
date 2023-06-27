@@ -4,7 +4,7 @@
     <% end %>
     <%= submit_tag 'タグ検索' %>
 <% end %>
-
+<br>
 
 <%= form_tag({controller:"reviews",action:"index"}, method: :get) do %>
     <%= text_field_tag :tag %>
@@ -13,8 +13,6 @@
 
 <% @reviews.each do |review| %>
 
-
-<p>画像</p>
 <%= link_to item_review_path(review.item.id,review) do %>
   <% if review.image.attached? %>
     <%= image_tag review.image, size: "200x200" %>

@@ -28,7 +28,6 @@
     </div>
   </div>
   <% @reviews.each do |review| %>
-  <p>画像</p>
   <%= link_to item_review_path(@item.id,review.id) do %>
   <% if review.image.attached? %>
     <%= image_tag review.image, size: "200x200" %>

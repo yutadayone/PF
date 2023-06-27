@@ -1,6 +1,8 @@
 class Public::ReviewsController < ApplicationController
+  before_action :authenticate_customer!
   def index
     @reviews = Review.all
+    #タグ検索
     @review = current_customer.reviews.new
     if params[:tag_ids]
       @reviews = []
@@ -11,6 +13,7 @@ class Public::ReviewsController < ApplicationController
         end
       end
     end
+    #タグ作成
     if params[:tag]
       Tag.create(tags: params[:tag])
     end
@@ -27,30 +30,18 @@ class Public::ReviewsController < ApplicationController
     if @review.save
       redirect_to item_review_path(params[:item_id], @review), notice: "You have created review successfully."
     else
-
       @reviews = Review.all
       render 'index'
-    end
-
-     @review = current_customer.reviews.new(review_params)
-    if @review.save
-      redirect_back(fallback_location: root_path)  #コメント送信後は、一つ前のページへリダイレクトさせる。
-    else
-      redirect_back(fallback_location: root_path)  #同上
     end
   end
 
   def show
-
+    @item = Item.find(params[:item_id])
     @review = Review.find(params[:id])
     #レビュー詳細に関連付けてあるコメントを全取得
     @comments = @review.comments
     #レビュー詳細画面でコメントの投稿を行うので、formのパラメータ用にCommentオブジェクトを取得
     @comment = current_customer.comments.new
-    #@item = Item.find(params[:id])
-    #@review = @item.review
-    @item = Item.find(params[:item_id])
-
   end
 
   def edit
@@ -70,7 +61,6 @@ class Public::ReviewsController < ApplicationController
   end
 
   private
-
   def review_params
     params.require(:review).permit(:star, :introduction, :image, :item_id, :customer_id, tag_ids: [])
   end
