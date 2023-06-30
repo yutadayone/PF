@@ -1,24 +1,46 @@
-<%= form_tag({controller:"reviews",action:"index"}, method: :get) do %>
-    <% Tag.all.each do |t| %>
-        <li><%= check_box :tag_ids, t.tags  %><%= t.tags  %></li>
+<div class="container">
+  <div class="row" >
+    <div class="col" >
+      <%= form_tag({controller:"reviews",action:"index"}, method: :get) do %>
+        <% Tag.all.each do |t| %>
+          <%= check_box :tag_ids, t.tags  %><%= t.tags %>
+        <% end %>
+          <%= submit_tag 'タグ検索' %>
+      <% end %>
+    </div>
+    <div class="col" >
+      <%= form_tag({controller:"reviews",action:"index"}, method: :get) do %>
+        <%= text_field_tag :tag %>
+        <%= submit_tag 'タグを追加' %>
+      <% end %>
+    </div>
+  <div class="row" >
+    <% @reviews.each do |review| %>
+      <%= link_to item_review_path(review.item.id,review) do %>
+        <% if review.image.attached? %>
+          <%= image_tag review.image, size: "200x200" %>
+        <% else %>
+          <%= image_tag 'no_image', size: "200x200" %>
+        <% end %>
+      <div id="star_<%= review.id %>"></div>
+        <script>
+          $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#star_<%=  review.id %>');
+          if (elem == null) return;
+          elem.innerHTML = "";
+          let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          score: "<%=  review.star %>",
+          readOnly: true,
+          };
+          raty(elem, opt);
+          });
+        </script>
+          <%= review.introduction %>
+      <% end %>
     <% end %>
-    <%= submit_tag 'タグ検索' %>
-<% end %>
-<br>
-
-<%= form_tag({controller:"reviews",action:"index"}, method: :get) do %>
-    <%= text_field_tag :tag %>
-    <%= submit_tag 'タグを追加' %>
-<% end %>
-
-<% @reviews.each do |review| %>
-
-<%= link_to item_review_path(review.item.id,review) do %>
-  <% if review.image.attached? %>
-    <%= image_tag review.image, size: "200x200" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "200x200" %>
-  <% end %>
-<%= review.introduction %>
-   <% end %>
-<% end %>
+  </div>
+  </div>
+</div>
