@@ -1,39 +1,44 @@
-  <% if @review.image.attached? %>
-    <%= image_tag @review.image, size: "200x200" %>
-  <% else %>
-    <%= image_tag 'no_image', size: "200x200" %>
-  <% end %>
-  レビュー
-<%= @review.introduction %>
-          <div id="star_<%=  @review.id %>"></div>
-<script>
-$(document).on('turbolinks:load', function() {
-  let elem = document.querySelector('#star_<%=  @review.id %>');
-  if (elem == null) return;
+<div class="container">
+  <div class="row" >
+    <div class="col" >
+      <div id="star_<%=  @review.id %>"></div>
+        <script>
+          $(document).on('turbolinks:load', function() {
+          let elem = document.querySelector('#star_<%=  @review.id %>');
+          if (elem == null) return;
+          elem.innerHTML = "";
+          let opt = {
+          starOn: "<%= asset_path('star-on.png') %>",
+          starOff: "<%= asset_path('star-off.png') %>",
+          starHalf: "<%= asset_path('star-half.png') %>",
+          score: "<%=  @review.star %>",
+          readOnly: true,
+          };
+          raty(elem, opt);
+          });
+        </script>
+      <% if @review.image.attached? %>
+        <%= image_tag @review.image, size: "200x200" %>
+      <% else %>
+        <%= image_tag 'no_image', size: "200x200" %>
+      <% end %>
+      <%= @review.introduction %>
+          <%=  link_to 'レビュー編集', edit_item_review_path(params[:item_id],@review), class:"btn btn-sm btn-success" %>
+          (タグ)
+          <% @review.tags.each do |tag| %>
+            <span><%= tag.tags %></span>
+          <% end %>
+    </div>
+    </div>
+  <div class="row" >
 
-  elem.innerHTML = "";
-  let opt = {
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    starHalf: "<%= asset_path('star-half.png') %>",
-    score: "<%=  @review.star %>",
-    readOnly: true,
-  };
-  raty(elem, opt);
-});
-</script>
-
-<%=  link_to 'レビュー編集', edit_item_review_path(params[:item_id],@review), class:"btn btn-sm btn-success" %>
-
-<% @review.tags.each do |tag| %>
-    <span><%= tag.tags %></span>
-<% end %>
-
-<div>
 <%= form_with model: [@item, @review, @comment] do |f| %>
-  <%= f.label :"コメントをする" %>
+  <%= f.label :"コメント記入欄" %>
   <%= f.text_area :introduction %>
+  </div>
   <%= f.submit 'コメントする', class:"btn btn-sm btn-success" %>
+  
+  <div class="row" >
   <%= f.label :"コメント一覧" %>
   <%= f.hidden_field :review_id, value: @review.id %>
 
@@ -42,4 +47,6 @@ $(document).on('turbolinks:load', function() {
 <% @comments.each do |comment| %>
   <%= comment.introduction %>
 <% end %>
+  </div>
+  
 </div>
