@@ -1,7 +1,7 @@
 class Public::ReviewsController < ApplicationController
   before_action :authenticate_customer!
   def index
-    @reviews = Review.all
+    @reviews = Review.page(params[:page]).per(10)
     #タグ検索
     @review = current_customer.reviews.new
     if params[:tag_ids]
