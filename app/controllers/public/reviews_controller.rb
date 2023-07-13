@@ -64,5 +64,4 @@ class Public::ReviewsController < ApplicationController
   def review_params
     params.require(:review).permit(:star, :introduction, :image, :item_id, :customer_id, tag_ids: [])
   end
-
 end
